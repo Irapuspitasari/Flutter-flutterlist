@@ -17,8 +17,8 @@ class _UserListState extends State<UserList> {
   TextEditingController Email = TextEditingController();
 
   List<UserData> daftarUser = [
-    UserData("Ira", 21, "ira0071@gmail.com"),
-    UserData("Puspita", 22, "puspita0071@gmail.com"),
+    UserData("Ira", 1, "ira0071@gmail.com"),
+    UserData("Puspita", 2, "puspita0071@gmail.com"),
     UserData("Sari", 23, "sari0071@gmail.com"),
   ];
 
@@ -80,16 +80,29 @@ class _UserListState extends State<UserList> {
                           Email.text.isEmpty)
                         throw new Exception("Isian Tidak Boleh Kosong");
 
-                      if (btnSimpanText == "Simpan") {
-                        daftarUser.add(UserData(
-                            Nama.text, int.parse(Umur.text), Email.text));
-                      } else {
-                        UserData userData = daftarUser[indexDipilih];
-                        userData.nama = Nama.text;
-                        userData.umur = int.parse(Umur.text);
-                        userData.email = Email.text;
+                      // menambah sejumlah record sesuai umur
+                      // int umur = int.parse(Umur.text);
 
-                        btnSimpanText = "Simpan";
+                      // if (btnSimpanText == "Simpan") {
+                      //   for (int i = 0; i < int.parse(Umur.text); i++) {
+                      //     daftarUser.add(UserData(
+                      //         Nama.text, int.parse(Umur.text), Email.text));
+                      //   }
+                      // }
+                      int umur = int.parse(Umur.text);
+                      // memberikan indeks
+                      {
+                        if (btnSimpanText == "Simpan") {
+                          for (int i = 0; i < int.parse(Umur.text); i++) {
+                            daftarUser.add(UserData("${i + 1}. ${Nama.text}",
+                                int.parse(Umur.text), Email.text));
+                          }
+                        } else {
+                          UserData userData = daftarUser[indexDipilih];
+                          userData.nama = Nama.text;
+                          userData.umur = int.parse(Umur.text);
+                          userData.email = Email.text;
+                        }
                         btnSimpanWarna = Colors.redAccent;
                       }
                       setState(() {
